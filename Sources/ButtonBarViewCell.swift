@@ -34,6 +34,24 @@ public class ButtonBarViewCell: UICollectionViewCell {
         label.font = UIFont.boldSystemFontOfSize(14.0)
         return label
     }()
+    @IBOutlet public lazy var septumView: UIView! = {
+        let view = UIView(frame: CGRectZero)
+        view.backgroundColor = .lightGrayColor()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        contentView.addSubview(septumView)
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        contentView.addSubview(septumView)
+    }
     
     public override func willMoveToSuperview(newSuperview: UIView?) {
         super.willMoveToSuperview(newSuperview)
@@ -41,5 +59,16 @@ public class ButtonBarViewCell: UICollectionViewCell {
         if label.superview != nil {
             contentView.addSubview(label)
         }
+    }
+    
+    public override func updateConstraints() {
+        super.updateConstraints()
+        
+        addConstraint(NSLayoutConstraint(item: septumView, attribute: .Right, relatedBy: .Equal, toItem: contentView, attribute: .Right, multiplier: 1.0, constant: 0))
+        addConstraint(NSLayoutConstraint(item: septumView, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 1))
+
+        addConstraint(NSLayoutConstraint(item: septumView, attribute: .CenterY, relatedBy: .Equal, toItem: contentView, attribute: .CenterY, multiplier: 1.0, constant: 0))
+        
+        addConstraint(NSLayoutConstraint(item: septumView, attribute: .Height, relatedBy: .Equal, toItem: contentView, attribute: .Height, multiplier: 0.5, constant: 0))
     }
 }

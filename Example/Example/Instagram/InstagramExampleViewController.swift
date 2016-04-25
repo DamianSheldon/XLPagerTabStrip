@@ -51,6 +51,21 @@ class InstagramExampleViewController: ButtonBarPagerTabStripViewController {
         super.viewDidLoad()
     }
     
+    // MARK: - UICollectionViewDataSource
+    
+    override internal func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
+    {
+        guard let cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath) as? ButtonBarViewCell else {
+            fatalError("UICollectionViewCell should be or extend from ButtonBarViewCell")
+        }
+        
+        if indexPath.row == self.collectionView(collectionView, numberOfItemsInSection: indexPath.section) - 1 {
+            cell.septumView.hidden = true
+        }
+        
+        return cell
+    }
+    
     // MARK: - PagerTabStripDataSource
     
     override func viewControllersForPagerTabStrip(pagerTabStripController: PagerTabStripViewController) -> [UIViewController] {
